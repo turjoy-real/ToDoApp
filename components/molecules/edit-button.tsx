@@ -2,12 +2,12 @@ import {Icon} from 'react-native-paper';
 import TouchableButton from '../atoms/button';
 import {PressProps} from '../../types';
 
-const DeleteButton = ({onPress}: PressProps) => {
+const EditButton = ({onPress}: PressProps) => {
   return (
     <TouchableButton onPress={onPress}>
-      <Icon size={30} source={'delete-outline'} />
+      <Icon size={30} source={'pencil'} />
     </TouchableButton>
   );
 };
 
-export default DeleteButton;
+export default EditButton;

@@ -1,23 +1,24 @@
-import { ReactNode } from "react";
-import { TouchableOpacity } from "react-native";
+import {ReactNode} from 'react';
+import {GestureResponderEvent, TouchableOpacity} from 'react-native';
 
 interface ButtonProps {
-    function: (index:number) => void;
-    children: ReactNode;
-
+  onPress: (event: GestureResponderEvent) => void;
+  children: ReactNode;
 }
 
-const TouchableButton = ({function:children}:ButtonProps) => {
-    return (
-      <TouchableOpacity
-        style={{
-          width: 30,
-          flex: 1,
-          alignItems: 'flex-end',
-          paddingRight: 20,
-        }}
-        onPress={function}>
-        {children}
-      </TouchableOpacity>
-    );
-}
+const TouchableButton = ({onPress, children}: ButtonProps) => {
+  return (
+    <TouchableOpacity
+      style={{
+        width: 30,
+        flex: 1,
+        alignItems: 'flex-end',
+        paddingRight: 20,
+      }}
+      onPress={onPress}>
+      {children}
+    </TouchableOpacity>
+  );
+};
+
+export default TouchableButton;
