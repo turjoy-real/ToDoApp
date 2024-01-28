@@ -59,6 +59,7 @@ function App(): React.JSX.Element {
           <Checkbox
             status={!item.pending ? 'checked' : 'unchecked'}
             onPress={() => handleEditTaskStatus(index)}
+            color="#4F4F4F"
           />
           <Text
             variant="headlineMedium"
@@ -91,9 +92,17 @@ function App(): React.JSX.Element {
                 value={text}
                 onChangeText={text => setText(text)}
                 mode={'outlined'}
+                activeOutlineColor="#4F4F4F"
               />
             </View>
-            <FAB icon="plus" style={{}} onPress={() => handleAddTask(text)} />
+            <FAB
+              icon="plus"
+              style={{
+                backgroundColor: '#ffffff',
+              }}
+              onPress={() => handleAddTask(text)}
+              rippleColor={'#ffffff'}
+            />
           </View>
         </View>
         {/* List of tasks  */}
