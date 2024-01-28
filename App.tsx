@@ -12,7 +12,7 @@ interface Task {
 }
 
 function App(): React.JSX.Element {
-  const [text, setText] = React.useState('');
+  const [text, setText] = useState('');
   const [tasks, setTasks] = useState<Task[]>([]);
   const [editIndex, setEditIndex] = useState(-1);
 
@@ -24,15 +24,9 @@ function App(): React.JSX.Element {
       description: todo,
     };
 
-    if (editIndex !== -1) {
-      const updatedTasks = [...tasks];
-      updatedTasks[editIndex] = task;
-      setTasks(updatedTasks);
-      setEditIndex(-1);
-    } else {
-      // Add new task
-      setTasks([...tasks, task]);
-    }
+    // Add new task
+    setTasks([...tasks, task]);
+
     setText('');
   };
 
@@ -85,26 +79,24 @@ function App(): React.JSX.Element {
     </View>
   );
 
-  const InputField = () => (
-    <View style={styles.inputField}>
-      <View style={styles.formContainer}>
-        <TextInput
-          value={text}
-          onChangeText={text => setText(text)}
-          mode={'outlined'}
-        />
-      </View>
-      <FAB icon="plus" style={{}} onPress={() => handleAddTask(text)} />
-    </View>
-  );
-
   return (
     <PaperProvider>
       <SafeAreaView style={styles.container}>
         <View style={styles.inputContainer}>
           <HeadingText text="ToDo App" />
-          <InputField />
+          {/* Input field  */}
+          <View style={styles.inputField}>
+            <View style={styles.formContainer}>
+              <TextInput
+                value={text}
+                onChangeText={text => setText(text)}
+                mode={'outlined'}
+              />
+            </View>
+            <FAB icon="plus" style={{}} onPress={() => handleAddTask(text)} />
+          </View>
         </View>
+        {/* List of tasks  */}
         <View style={styles.listContainer}>
           <FlatList data={tasks} renderItem={todoRenderUI} />
         </View>
