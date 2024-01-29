@@ -56,7 +56,7 @@ function App(): React.JSX.Element {
       }}>
       <View style={styles.taskActionsContainer}>
         <View style={styles.taskContainer}>
-          <Checkbox
+          <Checkbox.Android
             status={!item.pending ? 'checked' : 'unchecked'}
             onPress={() => handleEditTaskStatus(index)}
             color="#4F4F4F"

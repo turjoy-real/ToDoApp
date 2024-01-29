@@ -36,6 +36,11 @@ yarn android
 ### For iOS
 
 ```bash
+
+cd ios
+pod install
+cd ..
+
 # using npm
 npm run ios
 
@@ -55,3 +60,5 @@ Now that you have successfully run the app, let's modify it.
 2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
 
    For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+
+3. [Explore the code](https://www.turjoysaha.com/blog/react-native/from-novice-to-pro-create-a-to-do-app-using-react-native-level-1)
