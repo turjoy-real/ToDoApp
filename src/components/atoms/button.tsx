@@ -13,7 +13,7 @@ const TouchableButton = ({onPress, children}: ButtonProps) => {
         width: 30,
         flex: 1,
         alignItems: 'flex-end',
-        paddingRight: 20,
+        padding: 5,
       }}
       onPress={onPress}>
       {children}

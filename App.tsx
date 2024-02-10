@@ -1,159 +1,56 @@
 import React, {useState} from 'react';
-import {FlatList, SafeAreaView, StyleSheet, View} from 'react-native';
-import {TextInput, Text, FAB, Checkbox, Divider} from 'react-native-paper';
 import {PaperProvider} from 'react-native-paper';
-import DeleteButton from './components/molecules/delete-button';
-import EditButton from './components/molecules/edit-button';
-import HeadingText from './components/atoms/headingText';
-
-interface Task {
-  pending: boolean;
-  description: string;
-}
+import AppNavigator from './src/navigation/AppNavigator';
+import {TodoContext} from './src/todoContext';
+import {Task} from './types';
 
 function App(): React.JSX.Element {
-  const [text, setText] = useState('');
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [editIndex, setEditIndex] = useState(-1);
+  const [tasks, setTasks] = useState<Task[]>([
+    {pending: true, description: 'Edcec'},
+  ]);
 
   // functions
 
-  const handleAddTask = (todo: string) => {
+  const addTodo = (todo: string) => {
     let task = {
       pending: true,
       description: todo,
     };
-
-    // Add new task
     setTasks([...tasks, task]);
-
-    setText('');
   };
 
-  const handleEditTaskStatus = (index: number) => {
+  const updateTodoStatus = (index: number) => {
     const updatedTasks = [...tasks];
     updatedTasks[index].pending = !updatedTasks[index].pending;
     setTasks(updatedTasks);
   };
 
-  const handleEditTaskDescription = (index: number) => {
-    setText(tasks[index].description);
-    handleDeleteTask(index);
+  const updateTodoDetails = (index: number, description: string) => {
+    const updatedTasks = [...tasks];
+    updatedTasks[index].description = description;
+    setTasks(updatedTasks);
   };
 
-  const handleDeleteTask = (index: number) => {
+  const deleteTodo = (index: number) => {
     const updatedTasks = [...tasks];
     updatedTasks.splice(index, 1);
     setTasks(updatedTasks);
   };
 
-  // UI components
-
-  const todoRenderUI = ({item, index}: {item: Task; index: number}) => (
-    <View
-      style={{
-        height: 'auto',
-      }}>
-      <View style={styles.taskActionsContainer}>
-        <View style={styles.taskContainer}>
-          <Checkbox.Android
-            status={!item.pending ? 'checked' : 'unchecked'}
-            onPress={() => handleEditTaskStatus(index)}
-            color="#4F4F4F"
-          />
-          <Text
-            variant="headlineMedium"
-            style={{
-              textDecorationLine: !item.pending ? 'line-through' : 'none',
-            }}>
-            {item.description}
-          </Text>
-        </View>
-
-        {!item.pending ? (
-          <DeleteButton onPress={() => handleDeleteTask(index)} />
-        ) : (
-          <EditButton onPress={() => handleEditTaskDescription(index)} />
-        )}
-      </View>
-      <Divider bold />
-    </View>
-  );
-
   return (
     <PaperProvider>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.inputContainer}>
-          <HeadingText text="ToDo App" />
-          {/* Input field  */}
-          <View style={styles.inputField}>
-            <View style={styles.formContainer}>
-              <TextInput
-                value={text}
-                onChangeText={text => setText(text)}
-                mode={'outlined'}
-                activeOutlineColor="#4F4F4F"
-              />
-            </View>
-            <FAB
-              icon="plus"
-              style={{
-                backgroundColor: '#ffffff',
-              }}
-              onPress={() => handleAddTask(text)}
-              rippleColor={'#ffffff'}
-            />
-          </View>
-        </View>
-        {/* List of tasks  */}
-        <View style={styles.listContainer}>
-          <FlatList data={tasks} renderItem={todoRenderUI} />
-        </View>
-      </SafeAreaView>
+      <TodoContext.Provider
+        value={{
+          tasks,
+          addTodo,
+          updateTodoDetails,
+          updateTodoStatus,
+          deleteTodo,
+        }}>
+        <AppNavigator />
+      </TodoContext.Provider>
     </PaperProvider>
   );
 }
 
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    height: '100%',
-    display: 'flex',
-  },
-  inputField: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-evenly',
-  },
-  formContainer: {
-    width: '60%',
-  },
-  listContainer: {
-    width: '100%',
-    paddingHorizontal: '5%',
-    flex: 2,
-    paddingBottom: 30,
-  },
-  inputContainer: {
-    flex: 1,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-  },
-  taskContainer: {
-    flex: 3,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    paddingRight: 20,
-  },
-  taskActionsContainer: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    margin: 10,
-  },
-});
