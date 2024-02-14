@@ -1,40 +1,22 @@
 import {StyleSheet, View} from 'react-native';
 import HeadingText from '../../components/atoms/headingText';
-import {Checkbox, Text} from 'react-native-paper';
-import {TodoContextType, ViewScreenRouteProp} from '../../../types';
-import {useContext} from 'react';
-import {TodoContext} from '../../todoContext';
+import {ViewScreenRouteProp} from '../../../types';
+import CustomCheckBox from '../../components/molecules/customCheckBox';
+import DetailsText from '../../components/atoms/detailsText';
 
 const ViewTodo = ({route}: {route: ViewScreenRouteProp}) => {
   const item = route.params.task;
-  const {updateTodoStatus} = useContext(TodoContext) as TodoContextType;
 
   return (
     <View style={styles.container}>
-      <View style={{flex: 1, justifyContent: 'center'}}>
+      <View style={styles.headerContainer}>
         <HeadingText text="Todo Details" />
       </View>
-
-      <View style={styles.listContainer}>
-        <View
-          style={{
-            height: 'auto',
-          }}>
-          <View style={styles.taskActionsContainer}>
-            <View style={styles.taskContainer}>
-              <Checkbox.Android
-                status={!item.pending ? 'checked' : 'unchecked'}
-                onPress={() => updateTodoStatus(route.params.index)}
-                color="#4F4F4F"
-              />
-              <Text
-                variant="headlineMedium"
-                style={{
-                  textDecorationLine: !item.pending ? 'line-through' : 'none',
-                }}>
-                {item.description}
-              </Text>
-            </View>
+      <View style={styles.detailsContainer}>
+        <View style={styles.taskActionsContainer}>
+          <View style={styles.taskContainer}>
+            <CustomCheckBox item={item} index={route.params.index} />
+            <DetailsText item={item} lines={undefined} />
           </View>
         </View>
       </View>
@@ -51,24 +33,12 @@ const styles = StyleSheet.create({
     height: '100%',
     display: 'flex',
   },
-  inputField: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-evenly',
-  },
-  formContainer: {
-    width: '60%',
-  },
-  listContainer: {
+  headerContainer: {flex: 1, justifyContent: 'center'},
+  detailsContainer: {
     width: '100%',
     paddingHorizontal: '5%',
     flex: 2,
     paddingBottom: 30,
-  },
-  inputContainer: {
-    flex: 1,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
   },
   taskContainer: {
     flex: 3,

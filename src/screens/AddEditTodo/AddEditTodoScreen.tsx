@@ -1,13 +1,14 @@
 import {StyleSheet, View} from 'react-native';
 import HeadingText from '../../components/atoms/headingText';
 import {useContext, useState} from 'react';
-import {FAB, TextInput} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import {TodoContext} from '../../todoContext';
 import {
   AddEditScreenNavigationProp,
   AddEditScreenRouteProp,
   TodoContextType,
 } from '../../../types';
+import CustomFAB from '../../components/molecules/fab';
 
 const AddTodo = ({
   navigation,
@@ -25,16 +26,10 @@ const AddTodo = ({
 
   return (
     <View style={styles.container}>
-      <View style={{flex: 1, justifyContent: 'center'}}>
+      <View style={styles.headerContainer}>
         <HeadingText text="Add Todo" />
       </View>
-      <View
-        style={{
-          flex: 2,
-          width: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+      <View style={styles.formButtonContainer}>
         <View style={styles.formContainer}>
           <TextInput
             value={text}
@@ -44,33 +39,19 @@ const AddTodo = ({
             activeOutlineColor="#4F4F4F"
           />
         </View>
-        <View
-          style={{
-            width: '100%',
-            paddingHorizontal: '5%',
-            flex: 1,
-            paddingBottom: 30,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <FAB
-            icon="plus"
-            style={{
-              backgroundColor: '#ffffff',
-            }}
-            onPress={() => {
-              route.params
-                ? updateTodoDetails(
-                    route.params.index,
-                    route.params.task.description,
-                  )
-                : addTodo(text);
-              setText('');
-              navigation.goBack();
-            }}
-            rippleColor={'#ffffff'}
-          />
-        </View>
+
+        <CustomFAB
+          onPress={() => {
+            route.params
+              ? updateTodoDetails(
+                  route.params.index,
+                  route.params.task.description,
+                )
+              : addTodo(text);
+            setText('');
+            navigation.goBack();
+          }}
+        />
       </View>
     </View>
   );
@@ -85,37 +66,16 @@ const styles = StyleSheet.create({
     height: '100%',
     display: 'flex',
   },
-  inputField: {
+  headerContainer: {flex: 1, justifyContent: 'center'},
+  formButtonContainer: {
+    flex: 2,
     width: '100%',
-    height: 300,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
+
   formContainer: {
     width: '80%',
     flex: 4,
-  },
-  listContainer: {
-    width: '100%',
-    paddingHorizontal: '5%',
-    flex: 2,
-    paddingBottom: 30,
-  },
-  inputContainer: {
-    flex: 1,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-  },
-  taskContainer: {
-    flex: 3,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    paddingRight: 20,
-  },
-  taskActionsContainer: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    margin: 10,
   },
 });
