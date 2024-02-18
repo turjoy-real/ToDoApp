@@ -7,7 +7,7 @@ const TodoProvider = ({children}: {children: ReactNode}) => {
   const [tasks, setTasks] = useState<Task[]>([
     {
       pending: true,
-      description: 'Edcec vjhvjh efvfdvfvd everfver cervcerver',
+      description: 'Be a pro in React Native',
     },
   ]);
 

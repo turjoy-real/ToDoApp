@@ -1,11 +1,15 @@
 import {StyleSheet, View} from 'react-native';
 import HeadingText from '../../components/atoms/headingText';
-import {ViewScreenRouteProp} from '../../../types';
+import {TodoContextType, ViewScreenRouteProp} from '../../../types';
 import CustomCheckBox from '../../components/molecules/customCheckBox';
 import DetailsText from '../../components/atoms/detailsText';
+import {useContext} from 'react';
+import {TodoContext} from '../../todoContext';
 
 const ViewTodo = ({route}: {route: ViewScreenRouteProp}) => {
+  const {tasks} = useContext(TodoContext) as TodoContextType;
   const item = route.params.task;
+  const index = route.params.index;
 
   return (
     <View style={styles.container}>
@@ -15,8 +19,8 @@ const ViewTodo = ({route}: {route: ViewScreenRouteProp}) => {
       <View style={styles.detailsContainer}>
         <View style={styles.taskActionsContainer}>
           <View style={styles.taskContainer}>
-            <CustomCheckBox item={item} index={route.params.index} />
-            <DetailsText item={item} lines={undefined} />
+            <CustomCheckBox item={item} index={index} />
+            <DetailsText item={tasks[index]} lines={undefined} />
           </View>
         </View>
       </View>

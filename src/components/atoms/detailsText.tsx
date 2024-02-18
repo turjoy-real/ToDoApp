@@ -10,7 +10,7 @@ const DetailsText = ({
 }) => {
   return (
     <Text
-      variant="headlineMedium"
+      variant="headlineSmall"
       numberOfLines={lines}
       style={{
         textDecorationLine: !item.pending ? 'line-through' : 'none',

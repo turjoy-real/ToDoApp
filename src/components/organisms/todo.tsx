@@ -1,10 +1,11 @@
 import {StyleSheet, View} from 'react-native';
-import {Checkbox, Divider, Text} from 'react-native-paper';
+import {Divider} from 'react-native-paper';
 import {ListScreenNavigationProp, Task, TodoContextType} from '../../../types';
 import {useContext} from 'react';
 import {TodoContext} from '../../todoContext';
 import IconButton from '../molecules/iconButton';
 import DetailsText from '../atoms/detailsText';
+import CustomCheckBox from '../molecules/customCheckBox';
 
 const TodoRenderUI = ({
   item,
@@ -15,9 +16,7 @@ const TodoRenderUI = ({
   index: number;
   navigation: ListScreenNavigationProp;
 }) => {
-  const {tasks, updateTodoStatus, deleteTodo} = useContext(
-    TodoContext,
-  ) as TodoContextType;
+  const {deleteTodo} = useContext(TodoContext) as TodoContextType;
   return (
     <View
       style={{
@@ -25,14 +24,10 @@ const TodoRenderUI = ({
       }}>
       <View style={styles.taskActionsContainer}>
         <View style={styles.taskContainer}>
-          <Checkbox.Android
-            status={!item.pending ? 'checked' : 'unchecked'}
-            onPress={() => updateTodoStatus(index)}
-            color="#4F4F4F"
-          />
+          <CustomCheckBox item={item} index={index} />
           <DetailsText item={item} lines={1} />
         </View>
-        <View style={{flex: 1, flexDirection: 'row'}}>
+        <View style={styles.actionsContainer}>
           {!item.pending ? (
             <IconButton
               icon="delete-outline"
@@ -68,11 +63,11 @@ const styles = StyleSheet.create({
   taskContainer: {
     flex: 3,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    overflow: 'hidden',
   },
   taskActionsContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    margin: 5,
+    marginBottom: 5,
   },
+  actionsContainer: {flex: 1, flexDirection: 'row'},
 });

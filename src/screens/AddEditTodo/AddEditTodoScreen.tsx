@@ -43,10 +43,7 @@ const AddTodo = ({
         <CustomFAB
           onPress={() => {
             route.params
-              ? updateTodoDetails(
-                  route.params.index,
-                  route.params.task.description,
-                )
+              ? updateTodoDetails(route.params.index, text)
               : addTodo(text);
             setText('');
             navigation.goBack();
