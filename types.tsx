@@ -51,3 +51,8 @@ export type TodoContextType = {
   updateTodoStatus: (index: number) => void;
   deleteTodo: (index: number) => void;
 };
+
+export interface Error {
+  error: boolean;
+  errorMessage: string;
+}
