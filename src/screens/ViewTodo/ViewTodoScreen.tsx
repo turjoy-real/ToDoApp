@@ -1,43 +1,33 @@
 import {StyleSheet, View} from 'react-native';
 import HeadingText from '../../components/atoms/headingText';
-import {TodoContextType, ViewScreenRouteProp} from '../../../types';
+import {ViewScreenRouteProp} from '../../../types';
 import CustomCheckBox from '../../components/molecules/customCheckBox';
 import DetailsText from '../../components/atoms/detailsText';
-import {useContext} from 'react';
-import {TodoContext} from '../../todoContext';
+import useTodoData from '../../store/selectors/todo';
+import BasicContainer from '../../components/atoms/container';
 
 const ViewTodo = ({route}: {route: ViewScreenRouteProp}) => {
-  const {tasks} = useContext(TodoContext) as TodoContextType;
-  const item = route.params.task;
+  const tasks = useTodoData();
   const index = route.params.index;
 
   return (
-    <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <HeadingText text="Todo Details" />
-      </View>
+    <BasicContainer>
+      <HeadingText text="Todo Details" />
       <View style={styles.detailsContainer}>
         <View style={styles.taskActionsContainer}>
           <View style={styles.taskContainer}>
-            <CustomCheckBox item={item} index={index} />
+            <CustomCheckBox item={tasks[index]} index={index} />
             <DetailsText item={tasks[index]} lines={undefined} />
           </View>
         </View>
       </View>
-    </View>
+    </BasicContainer>
   );
 };
 
 export default ViewTodo;
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
-    display: 'flex',
-  },
-  headerContainer: {flex: 1, justifyContent: 'center'},
   detailsContainer: {
     width: '100%',
     paddingHorizontal: '5%',

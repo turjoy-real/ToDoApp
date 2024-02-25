@@ -1,16 +1,17 @@
 import {Checkbox} from 'react-native-paper';
-import {Task, TodoContextType} from '../../../types';
-import {useContext} from 'react';
-import {TodoContext} from '../../todoContext';
+import {Task} from '../../../types';
+import {useAppDispatch} from '../../store/hooks/redux-hooks';
+import {updateTodoStatus} from '../../store/actions/todo';
+import Colors from '../../constants/Colors';
 
 const CustomCheckBox = ({item, index}: {item: Task; index: number}) => {
-  const {updateTodoStatus} = useContext(TodoContext) as TodoContextType;
+  const dispatch = useAppDispatch();
 
   return (
     <Checkbox.Android
       status={!item.pending ? 'checked' : 'unchecked'}
-      onPress={() => updateTodoStatus(index)}
-      color="#4F4F4F"
+      onPress={() => dispatch(updateTodoStatus(index))}
+      color={Colors.text}
     />
   );
 };

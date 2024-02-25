@@ -1,6 +1,7 @@
 import {Icon} from 'react-native-paper';
 import {CustomIconButtonProps} from '../../../types';
 import {TouchableOpacity} from 'react-native';
+import Colors from '../../constants/Colors';
 
 const IconButton = ({onPress, icon}: CustomIconButtonProps) => {
   return (
@@ -10,7 +11,7 @@ const IconButton = ({onPress, icon}: CustomIconButtonProps) => {
         margin: 3,
       }}
       onPress={onPress}>
-      <Icon size={30} source={icon} />
+      <Icon size={30} source={icon} color={Colors.text} />
     </TouchableOpacity>
   );
 };

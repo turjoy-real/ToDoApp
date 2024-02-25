@@ -1,14 +1,17 @@
 import React from 'react';
 import {PaperProvider} from 'react-native-paper';
 import AppNavigator from './src/navigation/AppNavigator';
-import TodoProvider from './src/todoContext';
+
+import {Provider} from 'react-redux';
+
+import store from './src/store';
 
 function App(): React.JSX.Element {
   return (
     <PaperProvider>
-      <TodoProvider>
+      <Provider store={store}>
         <AppNavigator />
-      </TodoProvider>
+      </Provider>
     </PaperProvider>
   );
 }

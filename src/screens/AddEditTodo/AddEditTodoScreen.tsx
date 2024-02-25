@@ -1,14 +1,16 @@
 import {StyleSheet, View} from 'react-native';
 import HeadingText from '../../components/atoms/headingText';
-import {useContext, useState} from 'react';
+import {useState} from 'react';
 import {TextInput} from 'react-native-paper';
-import {TodoContext} from '../../todoContext';
 import {
   AddEditScreenNavigationProp,
   AddEditScreenRouteProp,
-  TodoContextType,
 } from '../../../types';
 import CustomFAB from '../../components/molecules/fab';
+import {addTodo, updateTodoDetails} from '../../store/actions/todo';
+import {useAppDispatch} from '../../store/hooks/redux-hooks';
+import BasicContainer from '../../components/atoms/container';
+import Colors from '../../constants/Colors';
 
 const AddTodo = ({
   navigation,
@@ -17,18 +19,14 @@ const AddTodo = ({
   navigation: AddEditScreenNavigationProp;
   route: AddEditScreenRouteProp;
 }) => {
-  const {addTodo, updateTodoDetails} = useContext(
-    TodoContext,
-  ) as TodoContextType;
   const [text, setText] = useState(
     route.params ? route.params.task.description : '',
   );
+  const dispatch = useAppDispatch();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <HeadingText text="Add Todo" />
-      </View>
+    <BasicContainer>
+      <HeadingText text="Add Todo" />
       <View style={styles.formButtonContainer}>
         <View style={styles.formContainer}>
           <TextInput
@@ -36,34 +34,35 @@ const AddTodo = ({
             multiline
             onChangeText={text => setText(text)}
             mode={'outlined'}
-            activeOutlineColor="#4F4F4F"
+            style={{backgroundColor: Colors.bgColor}}
+            activeOutlineColor={Colors.activeOutlineColor}
+            outlineColor={Colors.outLineColor}
+            textColor={Colors.text}
+            contentStyle={styles.inputStyle}
           />
         </View>
-
         <CustomFAB
           onPress={() => {
             route.params
-              ? updateTodoDetails(route.params.index, text)
-              : addTodo(text);
+              ? dispatch(
+                  updateTodoDetails({
+                    index: route.params.index,
+                    description: text,
+                  }),
+                )
+              : dispatch(addTodo(text));
             setText('');
             navigation.goBack();
           }}
         />
       </View>
-    </View>
+    </BasicContainer>
   );
 };
 
 export default AddTodo;
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
-    display: 'flex',
-  },
-  headerContainer: {flex: 1, justifyContent: 'center'},
   formButtonContainer: {
     flex: 2,
     width: '100%',
@@ -74,5 +73,9 @@ const styles = StyleSheet.create({
   formContainer: {
     width: '80%',
     flex: 4,
+  },
+
+  inputStyle: {
+    fontSize: 24,
   },
 });

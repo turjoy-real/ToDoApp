@@ -1,5 +1,6 @@
 import {Text} from 'react-native-paper';
 import {Task} from '../../../types';
+import Colors from '../../constants/Colors';
 
 const DetailsText = ({
   item,
@@ -15,6 +16,7 @@ const DetailsText = ({
       style={{
         textDecorationLine: !item.pending ? 'line-through' : 'none',
         textAlign: 'left',
+        color: Colors.text,
       }}>
       {item.description}
     </Text>

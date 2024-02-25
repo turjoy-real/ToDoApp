@@ -44,14 +44,6 @@ export type ViewScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
 
 export type AddEditScreenRouteProp = RouteProp<RootStackParamList, 'AddEdit'>;
 
-export type TodoContextType = {
-  tasks: Task[];
-  addTodo: (todo: string) => void;
-  updateTodoDetails: (index: number, description: string) => void;
-  updateTodoStatus: (index: number) => void;
-  deleteTodo: (index: number) => void;
-};
-
 export interface Error {
   error: boolean;
   errorMessage: string;

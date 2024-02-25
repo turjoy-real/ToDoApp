@@ -1,11 +1,11 @@
 import {StyleSheet, View} from 'react-native';
 import {Divider} from 'react-native-paper';
-import {ListScreenNavigationProp, Task, TodoContextType} from '../../../types';
-import {useContext} from 'react';
-import {TodoContext} from '../../todoContext';
+import {ListScreenNavigationProp, Task} from '../../../types';
 import IconButton from '../molecules/iconButton';
 import DetailsText from '../atoms/detailsText';
 import CustomCheckBox from '../molecules/customCheckBox';
+import {useAppDispatch} from '../../store/hooks/redux-hooks';
+import {deleteTodo} from '../../store/actions/todo';
 
 const TodoRenderUI = ({
   item,
@@ -16,7 +16,8 @@ const TodoRenderUI = ({
   index: number;
   navigation: ListScreenNavigationProp;
 }) => {
-  const {deleteTodo} = useContext(TodoContext) as TodoContextType;
+  const dispatch = useAppDispatch();
+
   return (
     <View
       style={{
@@ -31,7 +32,7 @@ const TodoRenderUI = ({
           {!item.pending ? (
             <IconButton
               icon="delete-outline"
-              onPress={() => deleteTodo(index)}
+              onPress={() => dispatch(deleteTodo(index))}
             />
           ) : (
             <IconButton

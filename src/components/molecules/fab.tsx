@@ -1,5 +1,6 @@
 import {GestureResponderEvent, StyleSheet, View} from 'react-native';
 import {FAB} from 'react-native-paper';
+import Colors from '../../constants/Colors';
 
 const CustomFAB = ({
   onPress,
@@ -11,11 +12,10 @@ const CustomFAB = ({
       <FAB
         icon="plus"
         style={{
-          backgroundColor: '#ffffff',
+          backgroundColor: Colors.fabColor,
           borderRadius: 60,
         }}
         onPress={onPress}
-        rippleColor={'#ffffff'}
       />
     </View>
   );

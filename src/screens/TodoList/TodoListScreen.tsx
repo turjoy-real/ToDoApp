@@ -1,19 +1,17 @@
 import {FlatList, StyleSheet, View} from 'react-native';
 import HeadingText from '../../components/atoms/headingText';
-import {useContext} from 'react';
-import {ListScreenNavigationProp, TodoContextType} from '../../../types';
-import {TodoContext} from '../../todoContext';
+import {ListScreenNavigationProp} from '../../../types';
 import CustomFAB from '../../components/molecules/fab';
 import TodoRenderUI from '../../components/organisms/todo';
+import useTodoData from '../../store/selectors/todo';
+import BasicContainer from '../../components/atoms/container';
 
 const TodoList = ({navigation}: {navigation: ListScreenNavigationProp}) => {
-  const {tasks} = useContext(TodoContext) as TodoContextType;
+  const tasks = useTodoData();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <HeadingText text="Todo List" />
-      </View>
+    <BasicContainer>
+      <HeadingText text="Todo List" />
       <View style={styles.listButtonContainer}>
         <View style={styles.listContainer}>
           <FlatList
@@ -23,23 +21,15 @@ const TodoList = ({navigation}: {navigation: ListScreenNavigationProp}) => {
             )}
           />
         </View>
-
         <CustomFAB onPress={() => navigation.navigate('AddEdit')} />
       </View>
-    </View>
+    </BasicContainer>
   );
 };
 
 export default TodoList;
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
-    display: 'flex',
-  },
-  headerContainer: {flex: 1, justifyContent: 'center'},
   listButtonContainer: {flex: 2, width: '100%'},
   listContainer: {
     width: '100%',
