@@ -20,7 +20,7 @@ const AddTodo = ({
   route: AddEditScreenRouteProp;
 }) => {
   const [text, setText] = useState(
-    route.params ? route.params.task.description : '',
+    route.params ? route.params.description : '',
   );
   const dispatch = useAppDispatch();
 
@@ -46,7 +46,7 @@ const AddTodo = ({
             route.params
               ? dispatch(
                   updateTodoDetails({
-                    index: route.params.index,
+                    id: route.params.id,
                     description: text,
                   }),
                 )

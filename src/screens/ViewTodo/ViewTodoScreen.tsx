@@ -7,7 +7,7 @@ import useTodoData from '../../store/selectors/todo';
 import BasicContainer from '../../components/atoms/container';
 
 const ViewTodo = ({route}: {route: ViewScreenRouteProp}) => {
-  const tasks = useTodoData();
+  const tasks = useTodoData().data;
   const index = route.params.index;
 
   return (
@@ -16,7 +16,7 @@ const ViewTodo = ({route}: {route: ViewScreenRouteProp}) => {
       <View style={styles.detailsContainer}>
         <View style={styles.taskActionsContainer}>
           <View style={styles.taskContainer}>
-            <CustomCheckBox item={tasks[index]} index={index} />
+            <CustomCheckBox item={tasks[index]} />
             <DetailsText item={tasks[index]} lines={undefined} />
           </View>
         </View>

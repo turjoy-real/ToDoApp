@@ -16,10 +16,13 @@ export interface Task {
   description: string;
 }
 
+export interface TaskResp extends Task {
+  id: string;
+}
 export type RootStackParamList = {
   List: undefined;
-  Details: {task: Task; index: number};
-  AddEdit: undefined | {task: Task; index: number};
+  Details: {index: number};
+  AddEdit: undefined | TaskResp;
 };
 
 // Navigation Type for TodoList screen
@@ -44,7 +47,7 @@ export type ViewScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
 
 export type AddEditScreenRouteProp = RouteProp<RootStackParamList, 'AddEdit'>;
 
-export interface Error {
-  error: boolean;
-  errorMessage: string;
-}
+export type CustomError = {
+  errored: boolean;
+  errorMessage: string | undefined;
+};

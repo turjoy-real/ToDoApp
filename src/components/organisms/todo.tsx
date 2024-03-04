@@ -1,6 +1,6 @@
 import {StyleSheet, View} from 'react-native';
 import {Divider} from 'react-native-paper';
-import {ListScreenNavigationProp, Task} from '../../../types';
+import {ListScreenNavigationProp, TaskResp} from '../../../types';
 import IconButton from '../molecules/iconButton';
 import DetailsText from '../atoms/detailsText';
 import CustomCheckBox from '../molecules/customCheckBox';
@@ -9,12 +9,12 @@ import {deleteTodo} from '../../store/actions/todo';
 
 const TodoRenderUI = ({
   item,
-  index,
   navigation,
+  index,
 }: {
-  item: Task;
-  index: number;
+  item: TaskResp;
   navigation: ListScreenNavigationProp;
+  index: number;
 }) => {
   const dispatch = useAppDispatch();
 
@@ -25,30 +25,25 @@ const TodoRenderUI = ({
       }}>
       <View style={styles.taskActionsContainer}>
         <View style={styles.taskContainer}>
-          <CustomCheckBox item={item} index={index} />
+          <CustomCheckBox item={item} />
           <DetailsText item={item} lines={1} />
         </View>
         <View style={styles.actionsContainer}>
           {!item.pending ? (
             <IconButton
               icon="delete-outline"
-              onPress={() => dispatch(deleteTodo(index))}
+              onPress={() => dispatch(deleteTodo(item.id))}
             />
           ) : (
             <IconButton
               icon="pencil"
-              onPress={() =>
-                navigation.navigate('AddEdit', {
-                  index,
-                  task: item,
-                })
-              }
+              onPress={() => navigation.navigate('AddEdit', item)}
             />
           )}
           <IconButton
             icon="dots-vertical"
             onPress={() => {
-              navigation.navigate('Details', {task: item, index});
+              navigation.navigate('Details', {index});
             }}
           />
         </View>
