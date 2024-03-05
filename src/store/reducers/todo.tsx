@@ -27,14 +27,13 @@ export const todoSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-
       // Fetching
       .addCase(fetchTodos.pending, state => {
         state.status = 'pending';
       })
       .addCase(fetchTodos.fulfilled, (state, action) => {
         state.status = 'success';
-        state.data = action.payload ? action.payload : [];
+        state.data = action.payload;
       })
       .addCase(fetchTodos.rejected, (state: todoSliceState, action) => {
         state.status = 'failed';
@@ -47,7 +46,9 @@ export const todoSlice = createSlice({
       })
       .addCase(addTodo.fulfilled, (state, action) => {
         state.status = 'success';
-        action.payload ? state.data.push(action.payload) : null;
+        console.log(action.payload);
+
+        state.data.push(action.payload);
       })
       .addCase(addTodo.rejected, (state, action) => {
         state.status = 'failed';
@@ -60,14 +61,13 @@ export const todoSlice = createSlice({
       })
       .addCase(updateTodoStatus.fulfilled, (state, action) => {
         state.status = 'success';
-        const updatedTasks = [...state.data];
-        console.log(action.payload);
 
+        const updatedTasks = [...state.data];
         const index = updatedTasks.findIndex(
           item => item.id === action.payload,
         );
-
         updatedTasks[index].pending = !updatedTasks[index].pending;
+
         state.data = updatedTasks;
       })
       .addCase(updateTodoStatus.rejected, (state, action) => {
@@ -83,12 +83,10 @@ export const todoSlice = createSlice({
         state.status = 'success';
         const updatedTasks = [...state.data];
         const index = updatedTasks.findIndex(
-          item => item.id === action.payload?.id,
+          item => item.id === action.payload.id,
         );
 
-        action.payload?.description
-          ? (updatedTasks[index].description = action.payload.description)
-          : null;
+        updatedTasks[index].description = action.payload.description;
         state.data = updatedTasks;
       })
       .addCase(updateTodoDetails.rejected, (state, action) => {

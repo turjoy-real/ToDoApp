@@ -2,8 +2,8 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {Task, TaskResp} from '../../../types';
 import BaseURL from '../../constants/baseUrl';
 
-type ResolveType<T> = (value?: T | PromiseLike<T>) => void;
-type RejectType = (reason?: string) => void;
+type ResolveType<T> = (value: T | PromiseLike<T>) => void;
+type RejectType = (reason: string) => void;
 
 export const fetchTodos = createAsyncThunk('todo/fetch', async () => {
   return new Promise((resolve: ResolveType<TaskResp[]>, reject: RejectType) => {
@@ -17,13 +17,16 @@ export const fetchTodos = createAsyncThunk('todo/fetch', async () => {
       .then(data => {
         let resData: any = data;
         let arr: TaskResp[] = [];
+
         for (let key in resData) {
+          console.log(key, resData[key]);
           arr.push({
             id: key,
             description: resData[key].description,
             pending: resData[key].pending,
           });
         }
+
         resolve(arr);
       })
       .catch(error => {
@@ -39,7 +42,10 @@ export const addTodo = createAsyncThunk('todo/add', async (task: string) => {
   };
 
   return new Promise((resolve: ResolveType<TaskResp>, reject: RejectType) => {
-    fetch(`${BaseURL}/todos.json`)
+    fetch(`${BaseURL}/todos.json`, {
+      method: 'POST',
+      body: JSON.stringify({...todo}),
+    })
       .then(response => {
         if (!response.ok) {
           reject(`HTTP error! Status: ${response.status}`);
@@ -84,7 +90,6 @@ export const updateTodoDetails = createAsyncThunk(
           })
           .then(data => {
             let resData: any = data;
-            console.log('r: ', resData);
 
             resolve({
               description,
@@ -123,8 +128,6 @@ export const updateTodoStatus = createAsyncThunk(
           return response.json();
         })
         .then(data => {
-          console.log('hj: ', data);
-
           resolve(id);
         })
         .catch(error => {

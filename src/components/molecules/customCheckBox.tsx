@@ -1,5 +1,5 @@
 import {Checkbox} from 'react-native-paper';
-import {Task, TaskResp} from '../../../types';
+import {TaskResp} from '../../../types';
 import {useAppDispatch} from '../../store/hooks/redux-hooks';
 import {updateTodoStatus} from '../../store/actions/todo';
 import Colors from '../../constants/Colors';
