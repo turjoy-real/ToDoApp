@@ -1,15 +1,13 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {Task, TaskResp} from '../../../types';
 import BaseURL from '../../constants/baseUrl';
+import {Services} from '../helpers';
+
+const service: Services = new Services();
 
 export const fetchTodos = createAsyncThunk('todo/fetch', async () => {
   try {
-    const response = await fetch(`${BaseURL}/todos.json`);
-
-    if (!response.ok) {
-      return Promise.reject(`HTTP error! Status: ${response.status}`);
-    }
-    const resData = await response.json();
+    const resData = await service.GET();
     const arr: TaskResp[] = [];
 
     for (const key in resData) {
@@ -33,14 +31,7 @@ export const addTodo = createAsyncThunk('todo/add', async (task: string) => {
   };
 
   try {
-    const response = await fetch(`${BaseURL}/todos.json`, {
-      method: 'POST',
-      body: JSON.stringify({...todo}),
-    });
-    if (!response.ok) {
-      return Promise.reject(`HTTP error! Status: ${response.status}`);
-    }
-    const resData = await response.json();
+    const resData = await service.POST(todo);
 
     return Promise.resolve({
       ...todo,
