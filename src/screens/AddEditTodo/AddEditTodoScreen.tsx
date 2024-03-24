@@ -9,7 +9,7 @@ import {
 import CustomFAB from '../../components/molecules/fab';
 import {addTodo, updateTodoDetails} from '../../store/actions/todo';
 import {useAppDispatch} from '../../store/hooks/redux-hooks';
-import BasicContainer from '../../components/atoms/container';
+import BasicContainer from '../../components/atoms/container/container';
 import Colors from '../../constants/Colors';
 
 const AddTodo = ({

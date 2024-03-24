@@ -1,6 +1,6 @@
 import {Text} from 'react-native-paper';
-import {Task} from '../../../types';
-import Colors from '../../constants/Colors';
+import {Task} from '../../../../types';
+import Colors from '../../../constants/Colors';
 
 const DetailsText = ({
   item,

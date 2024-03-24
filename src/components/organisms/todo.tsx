@@ -2,7 +2,7 @@ import {StyleSheet, View} from 'react-native';
 import {Divider} from 'react-native-paper';
 import {ListScreenNavigationProp, TaskResp} from '../../../types';
 import IconButton from '../molecules/iconButton';
-import DetailsText from '../atoms/detailsText';
+import DetailsText from '../atoms/detailsText/detailsText';
 import CustomCheckBox from '../molecules/customCheckBox';
 import {useAppDispatch} from '../../store/hooks/redux-hooks';
 import {deleteTodo} from '../../store/actions/todo';

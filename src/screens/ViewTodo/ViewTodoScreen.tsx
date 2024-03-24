@@ -2,9 +2,9 @@ import {StyleSheet, View} from 'react-native';
 import HeadingText from '../../components/atoms/headingText';
 import {ViewScreenRouteProp} from '../../../types';
 import CustomCheckBox from '../../components/molecules/customCheckBox';
-import DetailsText from '../../components/atoms/detailsText';
+import DetailsText from '../../components/atoms/detailsText/detailsText';
 import useTodoData from '../../store/selectors/todo';
-import BasicContainer from '../../components/atoms/container';
+import BasicContainer from '../../components/atoms/container/container';
 
 const ViewTodo = ({route}: {route: ViewScreenRouteProp}) => {
   const tasks = useTodoData().data;

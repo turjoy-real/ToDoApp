@@ -8,7 +8,7 @@ const CustomFAB = ({
   onPress: (event: GestureResponderEvent) => void;
 }) => {
   return (
-    <View style={styles.FABContainer}>
+    <View style={styles.FABContainer} testID="FabButton">
       <FAB
         icon="plus"
         style={{

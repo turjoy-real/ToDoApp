@@ -1,6 +1,6 @@
 import {ReactNode} from 'react';
 import {StyleSheet, View} from 'react-native';
-import Colors from '../../constants/Colors';
+import Colors from '../../../constants/Colors';
 
 const BasicContainer = ({children}: {children: ReactNode}) => {
   return <View style={styles.container}>{children}</View>;

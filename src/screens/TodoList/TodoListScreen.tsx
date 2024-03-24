@@ -4,7 +4,7 @@ import {ListScreenNavigationProp} from '../../../types';
 import CustomFAB from '../../components/molecules/fab';
 import TodoRenderUI from '../../components/organisms/todo';
 import useTodoData from '../../store/selectors/todo';
-import BasicContainer from '../../components/atoms/container';
+import BasicContainer from '../../components/atoms/container/container';
 import {useEffect, useState} from 'react';
 import {fetchTodos} from '../../store/actions/todo';
 import {useAppDispatch} from '../../store/hooks/redux-hooks';
