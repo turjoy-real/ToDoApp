@@ -8,14 +8,14 @@ import {
   updateTodoStatus,
 } from '../actions/todo';
 
-interface todoSliceState {
+export interface todoSliceState {
   status: 'idle' | 'pending' | 'success' | 'failed';
   data: TaskResp[];
   error: string | undefined;
 }
 
 // Define the initial state using that type
-const initialState: todoSliceState = {
+export const initialState: todoSliceState = {
   status: 'idle',
   data: [],
   error: undefined,
@@ -46,7 +46,6 @@ export const todoSlice = createSlice({
       })
       .addCase(addTodo.fulfilled, (state, action) => {
         state.status = 'success';
-        console.log(action.payload);
 
         state.data.push(action.payload);
       })
