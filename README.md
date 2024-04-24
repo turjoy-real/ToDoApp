@@ -58,3 +58,7 @@ Now that you have successfully run the app, let's modify it.
    For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
 
 3. [Explore the code](https://www.turjoysaha.com/blog/react-native/from-novice-to-pro-create-a-to-do-app-using-react-native-level-1)
+
+### Debugging help if required
+
+[ios flipper issue](https://retyui.medium.com/speed-up-ios-builds-by-turning-off-flipper-on-ci-complete-react-native-guide-6846d8433d86)

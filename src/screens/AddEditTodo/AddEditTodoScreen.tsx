@@ -32,6 +32,7 @@ const AddTodo = ({
           <TextInput
             value={text}
             multiline
+            placeholder="Todo"
             onChangeText={text => setText(text)}
             mode={'outlined'}
             style={{backgroundColor: Colors.bgColor}}

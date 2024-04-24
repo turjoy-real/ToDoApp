@@ -1,11 +1,9 @@
-import {configureStore} from '@reduxjs/toolkit';
-import {todoSlice} from '../reducers/todo';
-
 import {addTodo, deleteTodo, fetchTodos} from '../actions/todo';
 import {Services} from '../helpers';
 
-import {server} from '../../mocks/server';
-import {handlers} from '../../mocks/handlers';
+import {server} from '../../__mock__/server';
+// import {handlers} from '../../__mock__/handlers';
+import store from '..';
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
@@ -15,18 +13,48 @@ describe('redux tests', () => {
   afterEach(() => {
     jest.restoreAllMocks();
   });
-  const store = configureStore({reducer: todoSlice.reducer});
-  it('should post data fulfilled', async () => {
-    const mockId = '123';
+  const mockId = '123';
 
-    jest
-      .spyOn(Services.prototype, 'POST')
-      .mockResolvedValueOnce({name: mockId});
+  it('should fetch data fulfilled', async () => {
+    await store.dispatch(fetchTodos());
+
+    expect(store.getState().todo).toEqual({
+      data: [
+        {
+          description: 'todo 1',
+          id: '-NsjUY5FNijKFGUUzC7Q',
+          pending: true,
+        },
+        {
+          description: 'todo 2',
+          id: '-NsjUZ2nhml69EBr-K6c',
+          pending: false,
+        },
+      ],
+      error: undefined,
+      status: 'success',
+    });
+  });
+
+  it('should post data fulfilled', async () => {
+    // jest
+    //   .spyOn(Services.prototype, 'POST')
+    //   .mockResolvedValueOnce({name: mockId});
 
     await store.dispatch(addTodo('mock arg'));
 
-    expect(store.getState()).toEqual({
+    expect(store.getState().todo).toEqual({
       data: [
+        {
+          description: 'todo 1',
+          id: '-NsjUY5FNijKFGUUzC7Q',
+          pending: true,
+        },
+        {
+          description: 'todo 2',
+          id: '-NsjUZ2nhml69EBr-K6c',
+          pending: false,
+        },
         {
           description: 'mock arg',
           id: mockId,
@@ -38,59 +66,24 @@ describe('redux tests', () => {
     });
   });
 
-  // Other reducers
-  it('should fetch data fulfilled', async () => {
-    // const mockId = '123';
-
-    // jest.spyOn(Services.prototype, 'GET').mockResolvedValueOnce({
-    //   '-NsjUY5FNijKFGUUzC7Q': {
-    //     description: 'todo 1',
-    //     pending: true,
-    //   },
-    //   '-NsjUZ2nhml69EBr-K6c': {
-    //     description: 'todo 2',
-    //     pending: false,
-    //   },
-    // });
-    server.use(handlers[0]);
-
-    await store.dispatch(fetchTodos());
-
-    console.log('ff: ', store.getState());
-
-    // expect(store.getState()).toEqual({
-    //   data: [
-    //     {
-    //       description: 'todo 1',
-    //       id: '-NsjUY5FNijKFGUUzC7Q',
-    //       pending: true,
-    //     },
-    //     {
-    //       description: 'todo 2',
-    //       id: '-NsjUZ2nhml69EBr-K6c',
-    //       pending: false,
-    //     },
-    //   ],
-    //   error: undefined,
-    //   status: 'success',
-    // });
-  });
-
   it('should delete data fulfilled', async () => {
-    const mockId = '123';
+    await store.dispatch(deleteTodo(mockId));
 
-    // jest
-    //   .spyOn(Services.prototype, 'POST')
-    //   .mockResolvedValueOnce({name: mockId});
-
-    await store.dispatch(deleteTodo('123'));
-
-    console.log('hh: ', store.getState());
-
-    // expect(store.getState()).toEqual({
-    //   data: [],
-    //   error: undefined,
-    //   status: 'success',
-    // });
+    expect(store.getState().todo).toEqual({
+      data: [
+        {
+          description: 'todo 1',
+          id: '-NsjUY5FNijKFGUUzC7Q',
+          pending: true,
+        },
+        {
+          description: 'todo 2',
+          id: '-NsjUZ2nhml69EBr-K6c',
+          pending: false,
+        },
+      ],
+      error: undefined,
+      status: 'success',
+    });
   });
 });

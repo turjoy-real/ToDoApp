@@ -1,13 +1,8 @@
 module.exports = {
   preset: 'react-native',
   setupFiles: ['./node_modules/react-native-gesture-handler/jestSetup.js'],
-  // transformIgnorePatterns: [
-  //   'node_modules/(?!(jest-)?@?react-native|@react-native-community|@react-navigation)',
-  // ],
-  // setupFiles: ['<rootDir>/jest/setup.js'],
-  // moduleFileExtensions: ['js', 'tsx'],
-  // rootDir: '.',
-  // transform: {
-  //   '^.+\\.(ts|tsx)?$': 'ts-jest',
-  // },
+  moduleFileExtensions: ['js', 'tsx'],
+  transform: {
+    '^.+\\.(ts|tsx)?$': 'ts-jest',
+  },
 };

@@ -8,6 +8,7 @@ const CustomCheckBox = ({item}: {item: TaskResp}) => {
   const dispatch = useAppDispatch();
   return (
     <Checkbox.Android
+      accessibilityLabel={item.id}
       status={!item.pending ? 'checked' : 'unchecked'}
       onPress={() => {
         dispatch(updateTodoStatus({id: item.id, pending: item.pending}));

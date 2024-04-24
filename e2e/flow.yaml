@@ -1,0 +1,9 @@
+appId: com.todoapp
+---
+- launchApp
+- runScript: ./setup.js
+- tapOn: ${output.screens.TodoList.fabButton}
+- tapOn: ${output.screens.AddTodo.inputPlace}
+- inputText: ${output.screens.AddTodo.inputText}
+- tapOn: ${output.screens.TodoList.fabButton}
+- assertVisible: ${output.screens.AddTodo.inputText}

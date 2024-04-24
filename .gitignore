@@ -69,4 +69,6 @@ yarn-error.log
 yarn.lock
 package-lock.json
 
-src/constants/baseUrl.tsx
+.env.dev
+.env.prod
+.env.test
