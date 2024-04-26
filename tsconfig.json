@@ -1,6 +1,7 @@
 {
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
-    "typeRoots": ["./types"]
+    "typeRoots": ["./types"],
+    "module": "ES2022"
   }
 }

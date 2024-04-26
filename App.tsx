@@ -6,13 +6,33 @@ import {Provider} from 'react-redux';
 
 import store from './src/store';
 
-function App(): React.JSX.Element {
+import Config from 'react-native-config';
+
+async function enableMocking(): Promise<void> {
+  if (Config.APP_ENV !== 'test') {
+    return;
+  }
+
+  await import('./msw.polyfills');
+  const {server} = await import('./src/__mock__/server');
+  server.listen();
+}
+
+function App() {
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    enableMocking().then(() => setLoading(false));
+  }, []);
+
   return (
-    <PaperProvider>
-      <Provider store={store}>
-        <AppNavigator />
-      </Provider>
-    </PaperProvider>
+    !loading && (
+      <PaperProvider>
+        <Provider store={store}>
+          <AppNavigator />
+        </Provider>
+      </PaperProvider>
+    )
   );
 }
 
